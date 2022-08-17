@@ -76,5 +76,22 @@ class CartOrder(models.Model):
     paid_status=models.BooleanField(default=True)
     order_dt=models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        verbose_name_plural='5.Cart Order'
+    
+class CartOrderItems(models.Model):
+    order=models.ForeignKey(CartOrder,on_delete=models.CASCADE)
+    invoice_no=models.CharField(max_length=200)
+    item=models.CharField(max_length=150)
+    image=models.CharField(max_length=200)
+    qty=models.IntegerField()
+    price=models.FloatField()
+    total=models.FloatField()
+    
+    class Meta:
+        verbose_name_plural='6.Cart Order Items'
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+    
     
         
