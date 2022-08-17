@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
+from django.contrib.auth.models import User
 # Create your models here.
 class Banners(models.Model):
     image=models.ImageField(upload_to='banner_img/')
@@ -68,6 +69,12 @@ class ProductAttribute(models.Model):
     image=models.ImageField(upload_to='product_imgs/',null=True)
     class Meta:
         verbose_name_plural ='4.Products Attribute'
-    
 
+class CartOrder(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    total_amt=models.FloatField()
+    paid_status=models.BooleanField(default=True)
+    order_dt=models.DateTimeField(auto_now_add=True)
+    
+    
         

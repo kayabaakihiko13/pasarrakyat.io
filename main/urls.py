@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,6 +18,16 @@ urlpatterns=[
     
     # User URL
     path('accounts/signup',views.signup,name='signup'),
+
+    # Checkout
+    path('checkout',views.checkout,name='checkout'),
+    
+    # Paypal Payment
+    
+    path('paypal/', include('paypal.standard.ipn.urls')),
+    path('payment-done/', views.payment_done, name='payment_done'),
+    path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
+    
 
 ]
 if settings.DEBUG:
