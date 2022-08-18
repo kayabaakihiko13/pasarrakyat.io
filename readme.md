@@ -45,8 +45,8 @@ List Out Technolgy.
 
 
 ## 🛠 Skills
--Python
--Html
--CSS
--C++
+- Python
+- Html
+- CSS
+- C++
 
