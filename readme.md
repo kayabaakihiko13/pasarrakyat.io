@@ -25,8 +25,10 @@ List Out Technolgy.
  - Quary Js
  - CSS
  - JavaScript
+ - SCSS
+ 
 ## List Our Technology Back End And Database
-- Django
+- Django(Python Language Programming)
 - django-jet-reboot
 - Sqlite
 
