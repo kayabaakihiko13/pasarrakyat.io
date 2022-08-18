@@ -6,5 +6,8 @@
     <a href="{% url 'my_orders' %}" class="list-group-item">Orders</a>
     <a href="{% url 'my_addressbook' %}"
         class="list-group-item {% if request.path == '/my_addressbook' %}active {% endif %}">Address Book</a>
+    <a href="{% url 'password_change' %}"
+        class="list-group-item {% if request.path == '/accounts/password_change' %}active {% endif %}">Password
+        Change</a>
     <a href="{% url 'logout' %}" class="text-danger list-group-item">LogOut</a>
 </div>
