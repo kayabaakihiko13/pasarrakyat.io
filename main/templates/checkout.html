@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 <main class="container my-4" id="cartList">
     <!-- Featured Products -->
     <div class="row">
-        <h3 class="my-4 border-bottom pb-1">Checkout ({{totalitems}})</h3>
         <div class="col-md-9">
+            <h3 class="my-4 border-bottom pb-1">Cart ({{totalitems}})</h3>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -35,7 +34,7 @@
                     <tr>
                         <td colspan="2"></td>
                         <th>Total</th>
-                        <th>$. {{total_amt}}</th>
+                        <th>Rs. {{total_amt}}</th>
                     </tr>
                     {% if totalitems %}
                     <tr>
@@ -48,16 +47,15 @@
             </table>
         </div>
         <div class="col-md-3">
-            <h3 class="my-4 border-bottom pb-1">Selected Address ({{totalitems}})</h3>
-            <div class="card shadow">
+            <h3 class="my-4 border-bottom pb-1">Selected Address</h3>
+            <div class="card">
                 <div class="card-body">
-
-                    <p>{{address.city}}</p>
-                    <p>{{address.street}}</p>
-
+                    <h3 class="border-bottom ">City</h3>
+                    <p class="card-text text-primary">{{address.city}}</p>
+                    <p class="card-text text-primary">{{address.mobile}}</p>
+                    <p class="card-text text-primary">{{address.street}}</p>
                 </div>
             </div>
-
         </div>
     </div>
 </main>
