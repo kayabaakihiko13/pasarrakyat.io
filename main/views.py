@@ -4,7 +4,7 @@ from .models import *
 from django.template.loader import render_to_string
 # For User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from .forms import SignUpForm,AddressBookForm
 from django.contrib.auth import login,authenticate
 # checkout
 from django.contrib.auth.decorators import login_required
@@ -234,4 +234,36 @@ def payment_done(request):
 @csrf_exempt
 def payment_canceled(request):
 	return render(request, 'payment-fail.html')
+
+# User Dashbroad
+def my_dashboard(request):
+    return render(request,'user/dashboard.html') 
+
+# My Order History
+def my_orders(request):
+    orders=CartOrder.objects.filter(user=request.user).order_by('-id')
+    return render(request,'user/orders.html',{'order':orders}) 
+
+# Order list History
+def my_orders_items(request,id):
+    order=CartOrder.objects.get(pk=id)
+    orders=CartOrderItems.objects.filter(order=order).order_by('-id')
+    return render(request,'user/orders-items.html',{'order':orders}) 
+# Addresss Book
+ 
+def my_addressbook(request):
+    addbooks=UserAddressBook.objects.filter(user=request.user).order_by('-id')
+    return render(request,'user/addressbok.html',{'addbooks':addbooks}) 
+
+def save_address(request):
+    msg=''
+    if request.method=='POST':
+        form=AddressBookForm(request.POST)
+        if form.is_valid():
+            saveForm=form.save(commit=False)
+            saveForm.user=request.user
+            saveForm.save()
+            msg='Data has been Saved'
+    form=AddressBookForm
+    return render(request,'user/add-address.html',{'form':form})
     

@@ -2,7 +2,7 @@ from django import forms
 from django.forms.widgets import NumberInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import UserAddressBook
 GENDER_CHOICE=(
     ("Male",'Laki-Laki'),
     ("Female",'Perempuan')
@@ -18,3 +18,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model=User
         fields=('first_name','last_name','username','phone_number','email','birth_date','gender','password1','password2')
+class AddressBookForm(forms.ModelForm):   
+    class Meta:
+        model=UserAddressBook
+        fields=('city','street','status')

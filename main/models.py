@@ -71,11 +71,22 @@ class ProductAttribute(models.Model):
         verbose_name_plural ='4.Products Attribute'
 
 class CartOrder(models.Model):
+    paid_choice=(
+        ('False','Un Payoff'),
+        ('True','Payoff'),
+    )
+    
+    status_choice=(
+        ('process','In Process'),
+        ('process','Shipped'),
+        ('process','Delivered'),
+    )
+    
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     total_amt=models.FloatField()
-    paid_status=models.BooleanField(default=True)
+    paid_status=models.CharField(max_length=50,choices=paid_choice,default="False")
     order_dt=models.DateTimeField(auto_now_add=True)
-    
+    order_status=models.CharField(max_length=50,choices=status_choice,default='process')
     class Meta:
         verbose_name_plural='5.Cart Order'
     
@@ -92,6 +103,18 @@ class CartOrderItems(models.Model):
         verbose_name_plural='6.Cart Order Items'
     def image_tag(self):
         return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+
+# My AddresssBook
+class UserAddressBook(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    city=models.CharField(max_length=100)
+    street=models.CharField(max_length=200)    
+    status=models.BooleanField(default=False)
+    class Meta:
+        verbose_name_plural='7.Address Book'
+    
+        
+    
     
     
         

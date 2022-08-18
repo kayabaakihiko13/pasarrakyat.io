@@ -28,6 +28,16 @@ urlpatterns=[
     path('payment-done/', views.payment_done, name='payment_done'),
     path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
     
+    # User Section Start
+    path('my_dashboard', views.my_dashboard, name='my_dashboard'),
+    path('my_orders', views.my_orders, name='my_orders'),
+    path('my_orders_items/<int:id>', views.my_orders_items, name='my_orders_items'),
+    
+    #My Address
+    path('my_addressbook', views.my_addressbook, name='my_addressbook'),
+    path('add-address', views.save_address, name='add-address'),
+    
+    
 
 ]
 if settings.DEBUG:

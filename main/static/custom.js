@@ -121,6 +121,28 @@ $(document).on('click','.update-item',function(){
     });
     // End
 });
+    // Activate Seleted address
+    $(document).on('click','.activate-address',function(){
+		var _aId=$(this).attr('data-item');
+		var _vm=$(this);
+		// Ajax
+		$.ajax({
+			url:'/delete-from-cart',
+			data:{
+				'id':_pId,
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+				$(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+				$("#cartList").html(res.data);
+			}
+		});
+		// End
+	});
 
 
 });

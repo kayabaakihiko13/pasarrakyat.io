@@ -24,12 +24,17 @@ admin.site.register(ProductAttribute,ProductAttributeAdmin)
 
 # Cart Order
 class CartOrderAdmin(admin.ModelAdmin):
-    list_display=['user','total_amt','paid_status','order_dt']
-    list_editable=['paid_status']
+    list_display=['user','total_amt','paid_status','order_dt','order_status']
+    list_editable=['paid_status','order_status']
 admin.site.register(CartOrder,CartOrderAdmin)
+
 # Cart Order Item
 class CartOrderItemsAdmin(admin.ModelAdmin):
     list_display=['invoice_no','item','image_tag','qty','price','total']
 admin.site.register(CartOrderItems,CartOrderItemsAdmin)
 
+# User Address Book
+class UserAddressBookAdmin(admin.ModelAdmin):
+    list_display=['user','city','street','status']
+admin.site.register(UserAddressBook,UserAddressBookAdmin)
     
