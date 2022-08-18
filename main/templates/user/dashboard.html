@@ -1,49 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 <main class="container my-4">
     <!-- Featured Products -->
-    <h3 class="my-4 border-bottom pb-1">Status DashBroad</h3>
+    <h3 class="my-4 border-bottom pb-1">My Dashboard</h3>
     <div class="row">
         <div class="col-md-3">
-            <div class="list-group">
-                {% include 'user/user-sidebar.html' %}
-            </div>
+            {% include 'user/user-sidebar.html' %}
         </div>
         <div class="col-md-9">
-            <div class="row">
-                {% for add in addbook %}
-                <div class="col-md-4">
-                    <div
-                        class="card mb-3 {% if add.status %}border-secondary shadow{% endif %} address{{add.id}} address">
-                        <div class="card-body">
-                            <p class="card-text">{{add.city}}</p>
-                            <p class="card-text">{{add.mobile}}</p>
-                            <p class="card-text">{{add.street}}</p>
-                        </div>
-                        {% if add.status %}
-                        <div class="card-footer">
-                            <i class="fa fa-check-circle text-success check{{add.id}} check"></i>
-                            <button style="display:none;" data-address="{{add.id}}"
-                                class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
-                            <a href="{% url 'update-address' add.id %}" class="float-right"><i
-                                    class="fa fa-edit"></i></a>
-                        </div>
-                        {% else %}
-                        <div class="card-footer footer{{add.id}}">
-                            <i style="display:none;" class="fa fa-check-circle text-success check{{add.id}} check"></i>
-                            <button data-address="{{add.id}}"
-                                class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
-                            <a href="{% url 'update-address' add.id %}" class="float-right"><i
-                                    class="fa fa-edit"></i></a>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
+            <div>
+                <canvas id="myChart"></canvas>
             </div>
         </div>
     </div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+    // Setup
+    const labels = "{{monthNumber|safe}}";
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Orders By Month',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: "{{totalOrders}}",
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+
+
 {% endblock %}

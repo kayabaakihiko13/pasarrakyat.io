@@ -2,6 +2,8 @@ from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 from .models import *
 from django.template.loader import render_to_string
+from django.db.models.functions import ExtractMonth
+from django.db.models import Count
 # For User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,AddressBookForm,ProfileForm
@@ -237,12 +239,21 @@ def payment_canceled(request):
 	return render(request, 'payment-fail.html')
 
 # User Dashbroad
+import calendar
 def my_dashboard(request):
-    return render(request,'user/dashboard.html') 
-
+    orders=CartOrder.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
+    monthNumber=[]
+    totalOrders=[]
+    for d in orders:
+        monthNumber.append(calendar.month_name[d['month']])
+        totalOrders.append(d['count'])
+    return render(request,'user/dashboard.html',{'monthNumber':monthNumber,'totalOrders':totalOrders})
+    
 # My Order History
 def my_orders(request):
     orders=CartOrder.objects.filter(user=request.user).order_by('-id')
+    
+        
     return render(request,'user/orders.html',{'order':orders}) 
 
 # Order list History
