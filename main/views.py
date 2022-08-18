@@ -223,7 +223,8 @@ def checkout(request):
             
         }
         form=PayPalPaymentsForm(initial=paypal_dict)
-        return render(request,'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form})
+        address=UserAddressBook.objects.filter(user=request.user,status=True).first()
+        return render(request,'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address})
         
 @csrf_exempt
 def payment_done(request):
