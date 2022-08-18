@@ -107,6 +107,7 @@ class CartOrderItems(models.Model):
 # My AddresssBook
 class UserAddressBook(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    mobile=models.CharField(max_length=50,null=True)
     city=models.CharField(max_length=100)
     street=models.CharField(max_length=200)    
     status=models.BooleanField(default=False)

@@ -36,9 +36,13 @@ urlpatterns=[
     #My Address
     path('my_addressbook', views.my_addressbook, name='my_addressbook'),
     path('add-address', views.save_address, name='add-address'),
+    path('activate-address', views.activate_address, name='activate-address'),
+    path('update-address/<int:id>', views.update_address, name='update-address'),
+    path('edit-profile', views.edit_profile, name='edit-profile'),
     
     
 
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    

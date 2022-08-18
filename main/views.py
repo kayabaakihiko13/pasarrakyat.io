@@ -4,7 +4,7 @@ from .models import *
 from django.template.loader import render_to_string
 # For User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm,AddressBookForm
+from .forms import SignUpForm,AddressBookForm,ProfileForm
 from django.contrib.auth import login,authenticate
 # checkout
 from django.contrib.auth.decorators import login_required
@@ -255,15 +255,53 @@ def my_addressbook(request):
     addbooks=UserAddressBook.objects.filter(user=request.user).order_by('-id')
     return render(request,'user/addressbok.html',{'addbooks':addbooks}) 
 
+# Save Address
 def save_address(request):
-    msg=''
+    msg=None
     if request.method=='POST':
         form=AddressBookForm(request.POST)
         if form.is_valid():
             saveForm=form.save(commit=False)
             saveForm.user=request.user
+            if 'status' in request.POST:
+                UserAddressBook.objects.update(status=False)
             saveForm.save()
-            msg='Data has been Saved'
-    form=AddressBookForm
+            msg='Data has Been Saved'
+    form=AddressBookForm()
     return render(request,'user/add-address.html',{'form':form})
-    
+
+# Activate address
+def activate_address(request):
+    a_id=str(request.GET['id'])
+    UserAddressBook.objects.update(status=False)
+    UserAddressBook.objects.filter(id=a_id).update(status=True)
+    return JsonResponse({'bool':True})
+
+
+# Edit Profile
+def edit_profile(request):
+    msg=''
+    if request.method=='POST':
+        form=ProfileForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            msg='Data has Been Saved'
+    form=ProfileForm(instance=request.user)
+    return render(request,'user/edit-profile.html',{'form':form})
+
+
+# Save Address
+def update_address(request,id):
+    address=UserAddressBook.objects.get(pk=id)
+    msg=None
+    if request.method=='POST':
+        form=AddressBookForm(request.POST,instance=address)
+        if form.is_valid():
+            saveForm=form.save(commit=False)
+            saveForm.user=request.user
+            if 'status' in request.POST:
+                UserAddressBook.objects.update(status=False)
+            saveForm.save()
+            msg='Data has Been Saved'
+    form=AddressBookForm(instance=address)
+    return render(request,'user/update-address.html',{'form':form})

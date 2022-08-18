@@ -23,7 +23,7 @@
                             <td>
                                 {% for size in sizes %}
                                 <button data-price="{{size.price}}"
-                                    class="btn btn-outline-secondary btn-sm choose-size">{{size.size__title}}</button>
+                                    class="btn btn-outline-secondary btn-sm choose-size{{size.size__id}}">{{size.size__title}}</button>
                                 {% endfor %}
                             </td>
                         </tr>
