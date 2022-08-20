@@ -179,7 +179,8 @@ def signup(request):
             login(request,user)
     form=SignUpForm
     return render(request,'registration/signup.html',{'form':form})
-
+def success(request):
+    return render(request,'success.html')
 # Search
 @login_required
 def checkout(request):
@@ -317,3 +318,5 @@ def update_address(request,id):
             msg='Data has Been Saved'
     form=AddressBookForm(instance=address)
     return render(request,'user/update-address.html',{'form':form})
+
+

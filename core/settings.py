@@ -160,7 +160,18 @@ PAYPAL_RECEIVER_EMAIL = 'sb-c5xgx6555500@business.example.com'
 PAYPAL_TEST = True
 
 JET_SIDE_MENU_COMPACT = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'   
+
+# SMTP Configuration
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_USER_TLS=True
+EMAIL_HOST_USER='@gmail.com'
+EMAIL_HOST_PASSWORD=''
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_mail")
+
+ 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

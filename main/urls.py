@@ -2,6 +2,7 @@ from django.urls import path,include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 urlpatterns=[
     path('',views.home,name='home'),
     path('search',views.search,name='search'),
@@ -40,6 +41,8 @@ urlpatterns=[
     path('update-address/<int:id>', views.update_address, name='update-address'),
     path('edit-profile', views.edit_profile, name='edit-profile'),
     
+    # STMP Configuration
+    # path('success',views.success,name='success')
     
 
 ]
